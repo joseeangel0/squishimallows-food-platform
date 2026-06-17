@@ -16,11 +16,14 @@ export function useCart() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(KEY);
-      if (stored) setCart(JSON.parse(stored));
-    } catch {}
-    setReady(true);
+    const load = async () => {
+      try {
+        const stored = localStorage.getItem(KEY);
+        if (stored) setCart(JSON.parse(stored));
+      } catch {}
+      setReady(true);
+    };
+    load();
   }, []);
 
   const save = (items: CartItem[]) => {
