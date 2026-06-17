@@ -6,7 +6,9 @@ export async function GET(request: Request) {
   const category = searchParams.get("category");
   const search = searchParams.get("search");
 
-  let query = supabase.from("products").select("*, categories(name, slug)").eq("is_available", true);
+  const all = searchParams.get("all") === "1";
+  let query = supabase.from("products").select("*, categories(name, slug)");
+  if (!all) query = query.eq("is_available", true);
 
   if (category) query = query.eq("category_id", category);
   if (search) query = query.ilike("name", `%${search}%`);
