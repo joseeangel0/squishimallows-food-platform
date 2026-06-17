@@ -2,7 +2,7 @@ name: Squishimallows – Skeleton CI
 
 on:
   push:
-    branches: [main, jose-dev]
+    branches: [main, jose-dev, joseangel-dev]
   pull_request:
     branches: [main]
 
