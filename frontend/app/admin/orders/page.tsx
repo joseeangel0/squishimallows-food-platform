@@ -3,7 +3,7 @@ import { createServiceClient } from "@/lib/supabase/service";
 type OrderItem = {
   quantity: number;
   unit_price: number;
-  products: { name: string } | null;
+  products: { name: string }[] | null;
 };
 
 type Order = {
@@ -45,11 +45,11 @@ export default async function AdminOrders() {
           <tbody className="divide-y divide-gray-100">
             {(orders ?? []).length === 0 ? (
               <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-400">Sin órdenes</td></tr>
-            ) : (orders as Order[] ?? []).map((o) => (
+            ) : ((orders ?? []) as unknown as Order[]).map((o) => (
               <tr key={o.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-3 font-mono text-xs text-gray-500">{o.id.slice(0, 8)}…</td>
                 <td className="px-4 py-3 text-gray-700">
-                  {(o.order_items ?? []).map((i) => `${i.products?.name} ×${i.quantity}`).join(", ") || "—"}
+                  {(o.order_items ?? []).map((i) => `${i.products?.[0]?.name ?? "?"} ×${i.quantity}`).join(", ") || "—"}
                 </td>
                 <td className="px-4 py-3 font-semibold text-gray-900">${Number(o.order_total).toFixed(2)}</td>
                 <td className="px-4 py-3">

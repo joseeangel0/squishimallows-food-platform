@@ -1,7 +1,7 @@
 import { createServiceClient } from "@/lib/supabase/service";
 
-type ViewRow = { product_id: string; products: { name: string } | null };
-type SoldRow = { product_id: string; quantity: number; products: { name: string } | null };
+type ViewRow = { product_id: string; products: { name: string }[] | null };
+type SoldRow = { product_id: string; quantity: number; products: { name: string }[] | null };
 type DailyOrderRow = { completed_at: string };
 
 async function getMetrics() {
@@ -37,17 +37,17 @@ async function getMetrics() {
   const totalUsers   = authUsers?.users?.length ?? 0;
 
   const viewCounts: Record<string, { name: string; count: number }> = {};
-  (topViewed as ViewRow[] ?? []).forEach((v) => {
+  ((topViewed ?? []) as unknown as ViewRow[]).forEach((v) => {
     const id = v.product_id;
-    if (!viewCounts[id]) viewCounts[id] = { name: v.products?.name ?? id, count: 0 };
+    if (!viewCounts[id]) viewCounts[id] = { name: v.products?.[0]?.name ?? id, count: 0 };
     viewCounts[id].count++;
   });
   const topViewedList = Object.values(viewCounts).sort((a, b) => b.count - a.count).slice(0, 5);
 
   const soldCounts: Record<string, { name: string; count: number }> = {};
-  (topSold as SoldRow[] ?? []).forEach((v) => {
+  ((topSold ?? []) as unknown as SoldRow[]).forEach((v) => {
     const id = v.product_id;
-    if (!soldCounts[id]) soldCounts[id] = { name: v.products?.name ?? id, count: 0 };
+    if (!soldCounts[id]) soldCounts[id] = { name: v.products?.[0]?.name ?? id, count: 0 };
     soldCounts[id].count += Number(v.quantity);
   });
   const topSoldList = Object.values(soldCounts).sort((a, b) => b.count - a.count).slice(0, 5);
@@ -57,7 +57,7 @@ async function getMetrics() {
     const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
     dayMap[d.toISOString().slice(0, 10)] = 0;
   }
-  (dailyOrders as DailyOrderRow[] ?? []).forEach((o) => {
+  ((dailyOrders ?? []) as unknown as DailyOrderRow[]).forEach((o) => {
     const day = o.completed_at.slice(0, 10);
     if (day in dayMap) dayMap[day]++;
   });
