@@ -1,9 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header";
+import { ProductModal } from "@/components/product-modal";
+import { useCart } from "@/lib/cart";
 
-type Product = { id: string; name: string; price: number; description: string; categories: { name: string } };
+type Product = { id: string; name: string; price: number; description: string; image_url: string | null; images: string[] | null; categories: { name: string } };
 type Category = { id: string; name: string; slug: string };
 
 export default function CatalogPage() {
@@ -11,7 +14,8 @@ export default function CatalogPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [activecat, setActivecat]   = useState("");
   const [search, setSearch]         = useState("");
-  const [cart, setCart]             = useState<Product[]>([]);
+  const { addItem, count } = useCart();
+  const [selected, setSelected]     = useState<Product | null>(null);
 
   useEffect(() => {
     fetch("/api/categories").then((r) => r.json()).then(setCategories);
@@ -24,24 +28,9 @@ export default function CatalogPage() {
     fetch(`/api/products?${params}`).then((r) => r.json()).then(setProducts);
   }, [activecat, search]);
 
-  const addToCart = (product: Product) => setCart((prev) => [...prev, product]);
-
   return (
     <main className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b px-6 py-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-orange-500">Squishimallows 🍜</h1>
-        <div className="flex gap-4 items-center">
-          <Link href="/search" className="text-sm text-gray-600 hover:text-orange-500">Buscar</Link>
-          <Link href="/cart" className="relative">
-            <Button variant="outline" size="sm">
-              🛒 Carrito
-              {cart.length > 0 && (
-                <span className="ml-2 bg-orange-500 text-white text-xs rounded-full px-1.5">{cart.length}</span>
-              )}
-            </Button>
-          </Link>
-        </div>
-      </header>
+      <Header cartCount={count} />
 
       <div className="max-w-6xl mx-auto px-6 py-8">
         <input
@@ -49,13 +38,13 @@ export default function CatalogPage() {
           placeholder="Buscar productos..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full border rounded-lg px-4 py-2 mb-6 text-sm focus:outline-none focus:ring-2 focus:ring-orange-300"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-6 text-sm focus:outline-none focus:ring-2 focus:ring-rm-purple"
         />
 
         <div className="flex gap-2 flex-wrap mb-6">
           <button
             onClick={() => setActivecat("")}
-            className={`px-3 py-1 rounded-full text-sm border transition ${!activecat ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600"}`}
+            className={`px-3 py-1 rounded-full text-sm border transition-colors ${!activecat ? "bg-rm-purple text-white border-rm-purple" : "bg-white text-gray-600 border-gray-300 hover:border-rm-purple hover:text-rm-purple"}`}
           >
             Todos
           </button>
@@ -63,7 +52,7 @@ export default function CatalogPage() {
             <button
               key={c.id}
               onClick={() => setActivecat(c.id)}
-              className={`px-3 py-1 rounded-full text-sm border transition ${activecat === c.id ? "bg-orange-500 text-white border-orange-500" : "bg-white text-gray-600"}`}
+              className={`px-3 py-1 rounded-full text-sm border transition-colors ${activecat === c.id ? "bg-rm-purple text-white border-rm-purple" : "bg-white text-gray-600 border-gray-300 hover:border-rm-purple hover:text-rm-purple"}`}
             >
               {c.name}
             </button>
@@ -72,20 +61,41 @@ export default function CatalogPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((p) => (
-            <div key={p.id} className="bg-white rounded-xl border p-4 flex flex-col gap-2 hover:shadow-md transition">
-              <div className="bg-orange-50 rounded-lg h-32 flex items-center justify-center text-4xl">🍽️</div>
-              <span className="text-xs text-orange-500 font-medium">{p.categories?.name}</span>
-              <h2 className="font-semibold text-gray-800">{p.name}</h2>
+            <div
+              key={p.id}
+              onClick={() => setSelected(p)}
+              className="bg-white rounded-xl border border-gray-200 p-4 flex flex-col gap-2 hover:shadow-md hover:border-rm-purple transition-all cursor-pointer"
+            >
+              <div className="relative rounded-lg h-32 overflow-hidden bg-rm-purple-light">
+                {p.image_url ? (
+                  <Image src={p.image_url} alt={p.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                ) : (
+                  <div className="flex items-center justify-center h-full text-4xl">🍽️</div>
+                )}
+              </div>
+              <span className="inline-block w-fit bg-rm-amber text-black text-xs font-semibold px-2 py-0.5 rounded-full">{p.categories?.name}</span>
+              <h2 className="font-semibold text-gray-900">{p.name}</h2>
               <p className="text-xs text-gray-500 line-clamp-2">{p.description}</p>
               <div className="flex items-center justify-between mt-auto pt-2">
                 <span className="font-bold text-gray-900">${p.price} MXN</span>
-                <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={() => addToCart(p)}>
+                <Button
+                  size="sm"
+                  className="bg-rm-purple hover:bg-rm-purple-hover text-white"
+                  onClick={(e) => { e.stopPropagation(); addItem(p); }}
+                >
                   Agregar
                 </Button>
               </div>
             </div>
           ))}
         </div>
+
+        <ProductModal
+          product={selected}
+          open={!!selected}
+          onClose={() => setSelected(null)}
+          onAddToCart={addItem}
+        />
       </div>
     </main>
   );

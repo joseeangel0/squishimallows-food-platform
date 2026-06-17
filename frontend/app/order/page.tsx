@@ -23,7 +23,7 @@ export default function OrderPage() {
         </div>
 
         <Link href="/">
-          <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Volver al menú</Button>
+          <Button className="w-full bg-rm-purple hover:bg-rm-purple-hover text-white">Volver al menú</Button>
         </Link>
       </div>
     </main>

@@ -18,6 +18,12 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+  /* Raccoon Market brand colors */
+  --color-rm-amber: #ed9f22;
+  --color-rm-amber-hover: #d4891a;
+  --color-rm-purple: #600d8b;
+  --color-rm-purple-hover: #500b78;
+  --color-rm-purple-light: #f3e8ff;
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
