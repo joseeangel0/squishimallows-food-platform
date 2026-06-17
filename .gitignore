@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+.env.*
+
+# Build and cache output
+dist/
+build/
+.cache/
+.pytest_cache/
+
+# Local editor/system files
+.DS_Store
+Thumbs.db
+*.swp
+
