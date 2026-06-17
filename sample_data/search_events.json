@@ -1,0 +1,57 @@
+[
+  {
+    "id":"e9cfdf37-7274-45b6-a394-69d13c18a6cd",
+    "session_id":"128309d0-5b43-40f8-ad4a-4322a5fe65f8",
+    "user_id":"5580df8c-b805-4090-9fc5-a01cd1c25e23",
+    "query":"comida yucateca",
+    "results_count":4,
+    "used_search":true,
+    "completed_purchase":true,
+    "order_total":285.02,
+    "created_at":"2026-05-23T20:03:57.316684+00:00"
+  },
+  {
+    "id":"bee22542-c623-4ec6-acb0-71901d5e111f",
+    "session_id":"db5275d5-13a5-4388-acc7-11d427aeda99",
+    "user_id":"a6d2950b-e2d1-4ef7-ab1e-3e0886a92f20",
+    "query":"snack",
+    "results_count":14,
+    "used_search":true,
+    "completed_purchase":false,
+    "order_total":null,
+    "created_at":"2026-06-06T23:48:30.316684+00:00"
+  },
+  {
+    "id":"0963c976-28f4-47a7-98be-23562cb9e5a8",
+    "session_id":"949b382c-a3b5-4da1-87c2-7d2dea9e157c",
+    "user_id":"a6d2950b-e2d1-4ef7-ab1e-3e0886a92f20",
+    "query":"comida yucateca",
+    "results_count":11,
+    "used_search":true,
+    "completed_purchase":true,
+    "order_total":245.77,
+    "created_at":"2026-05-21T05:55:45.316684+00:00"
+  },
+  {
+    "id":"2b233ff5-e1b6-4e2d-96fb-010a79a05195",
+    "session_id":"04494b84-415f-4adc-a0de-07383a5b973b",
+    "user_id":"1a6be97d-1781-4210-9628-17aebb888501",
+    "query":"sopa de lima",
+    "results_count":2,
+    "used_search":true,
+    "completed_purchase":true,
+    "order_total":296.88,
+    "created_at":"2026-05-28T16:41:21.316684+00:00"
+  },
+  {
+    "id":"0ae0bd82-e1c8-4236-9be7-d02e78192c98",
+    "session_id":"b3d9af1c-540c-483a-b709-930d00d9383d",
+    "user_id":"1a6be97d-1781-4210-9628-17aebb888501",
+    "query":"snack",
+    "results_count":11,
+    "used_search":true,
+    "completed_purchase":false,
+    "order_total":null,
+    "created_at":"2026-05-21T19:52:54.316684+00:00"
+  }
+]

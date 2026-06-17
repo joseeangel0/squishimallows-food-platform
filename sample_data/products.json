@@ -1,0 +1,252 @@
+[
+  {
+    "id":"89487e82-e1f4-4a40-a1c6-19a76f8eaa75",
+    "category_id":"889ac393-27f0-4b2d-ae9a-80a8e4331cd5",
+    "name":"Panuchos de Cochinita",
+    "description":"Panuchos yucatecos rellenos de cochinita pibil con cebolla morada",
+    "price":35.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1565299507177-b0ac66763828?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"75270afd-e0ca-4863-9614-31042204dcba",
+    "category_id":"889ac393-27f0-4b2d-ae9a-80a8e4331cd5",
+    "name":"Salbutes",
+    "description":"Tortillas fritas con pollo, lechuga, tomate y cebolla morada",
+    "price":30.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1551504734-5ee1c4a1479b?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"189adf6e-958f-4fea-bfd7-33b9a67c2958",
+    "category_id":"889ac393-27f0-4b2d-ae9a-80a8e4331cd5",
+    "name":"Huevos Motuleños",
+    "description":"Huevos fritos sobre tortilla con frijoles, jamón, chícharos y plátano",
+    "price":55.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1525351484163-7529414344d8?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"1219b439-fc7b-45ca-ab13-82d9d5eef284",
+    "category_id":"889ac393-27f0-4b2d-ae9a-80a8e4331cd5",
+    "name":"Chilaquiles Rojos",
+    "description":"Totopos en salsa roja con crema, queso y pollo",
+    "price":60.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1584278433313-7aa1dd8a75f0?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"48ab4f6f-a29e-4fb6-ad70-e4172cff3f4b",
+    "category_id":"4d95c0e4-640d-4b03-9f82-7fd5cc03b7d1",
+    "name":"Poc Chuc",
+    "description":"Cerdo marinado en naranja agria asado al carbón con ensalada",
+    "price":95.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1558030006-450675393462?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"78d4c834-7870-44d8-815f-6d2fdef1b2a2",
+    "category_id":"4d95c0e4-640d-4b03-9f82-7fd5cc03b7d1",
+    "name":"Sopa de Lima",
+    "description":"Sopa yucateca de lima con pollo, tortilla y aguacate",
+    "price":70.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1547592180-85f173990554?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"0218e35b-68a4-4986-bb1b-035a4291acb7",
+    "category_id":"4d95c0e4-640d-4b03-9f82-7fd5cc03b7d1",
+    "name":"Cochinita Pibil",
+    "description":"Cerdo horneado en hoja de plátano con achiote, frijoles y tortillas",
+    "price":90.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1565299585323-38d6b0865b47?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"8bc8a7bf-fc92-4333-9ad2-d5db510f96bc",
+    "category_id":"4d95c0e4-640d-4b03-9f82-7fd5cc03b7d1",
+    "name":"Relleno Negro",
+    "description":"Guiso yucateco con pavo, chile y especia negra, servido con arroz",
+    "price":105.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1516684732162-798a0062be99?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"e7da73d1-a5f5-4ab9-897e-2d8eea474f19",
+    "category_id":"4d95c0e4-640d-4b03-9f82-7fd5cc03b7d1",
+    "name":"Lomitos de Valladolid",
+    "description":"Cerdo en salsa de jitomate estilo Valladolid",
+    "price":88.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1555939594-58d7cb561ad1?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"b52aa84f-9a66-4c7f-9813-6fb9db80fc34",
+    "category_id":"6015a68c-2e29-48bf-ba5f-a872c0c2a962",
+    "name":"Papas a la Francesa",
+    "description":"Papas fritas con sal y alioli",
+    "price":35.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1573080496219-bb080dd4f877?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"832b0f76-79c9-4928-9cbe-8e6fbb91e9f5",
+    "category_id":"6015a68c-2e29-48bf-ba5f-a872c0c2a962",
+    "name":"Alitas BBQ",
+    "description":"6 alitas de pollo en salsa BBQ con aderezo ranch",
+    "price":75.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1567620832903-9fc6debc209f?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"092ad979-fc22-4faa-a645-8413e1379756",
+    "category_id":"6015a68c-2e29-48bf-ba5f-a872c0c2a962",
+    "name":"Elote Loco",
+    "description":"Elote con mayonesa, queso, chile y limón",
+    "price":25.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1551754655-cd27e38d2076?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"7b50722d-8b71-4a24-9bde-702d8e12e342",
+    "category_id":"6015a68c-2e29-48bf-ba5f-a872c0c2a962",
+    "name":"Tostadas de Ceviche",
+    "description":"3 tostadas con ceviche de camarón fresco",
+    "price":55.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1625944230945-1b7dd3b949ab?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"ef9bfb35-bb7b-472b-a64d-bc681c1f0072",
+    "category_id":"1b32d62d-b66b-4023-b98b-e8c07310b148",
+    "name":"Agua de Horchata",
+    "description":"Agua fresca de horchata con canela (1L)",
+    "price":25.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1568909344668-6f14a07b56a0?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"76909304-086b-4bb9-b21b-206d99f1deae",
+    "category_id":"1b32d62d-b66b-4023-b98b-e8c07310b148",
+    "name":"Agua de Jamaica",
+    "description":"Agua fresca de flor de jamaica (1L)",
+    "price":20.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1544145945-f90425340c7e?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"69ab1e7d-1405-4182-9958-4b0bc7405daf",
+    "category_id":"1b32d62d-b66b-4023-b98b-e8c07310b148",
+    "name":"Café de Olla",
+    "description":"Café tradicional con canela y piloncillo",
+    "price":28.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1509042239860-f550ce710b93?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"7e4ce8f2-56a6-4a62-a35f-5b71809171cf",
+    "category_id":"1b32d62d-b66b-4023-b98b-e8c07310b148",
+    "name":"Limonada Natural",
+    "description":"Limonada fresca con menta y hielo",
+    "price":22.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1495474472287-4d71bcdd2085?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"f1ca7f6f-aa3b-4368-8595-cfc56d8e128a",
+    "category_id":"1b32d62d-b66b-4023-b98b-e8c07310b148",
+    "name":"Refresco Lata",
+    "description":"Coca-Cola, Pepsi o Sprite (355ml)",
+    "price":18.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1625772452859-1c03d884dcd7?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"784e60b1-42cf-4a8b-9ea1-78acb65d42ba",
+    "category_id":"8c34c28c-cf17-4175-85aa-85244e83d737",
+    "name":"Dulce de Papaya",
+    "description":"Papaya en almíbar con queso de bola yucateco",
+    "price":30.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1563729784474-d77dbb933a9e?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"3b61632d-7835-4181-8fa0-9f77c86c946e",
+    "category_id":"8c34c28c-cf17-4175-85aa-85244e83d737",
+    "name":"Cheesecake de Mango",
+    "description":"Cheesecake cremoso con cobertura de mango fresco",
+    "price":55.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1587314168485-3236d6710814?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"2ae6910c-5f34-48f2-82a3-0b016f121c01",
+    "category_id":"8c34c28c-cf17-4175-85aa-85244e83d737",
+    "name":"Churros con Chocolate",
+    "description":"4 churros crujientes con dip de chocolate caliente",
+    "price":45.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1624471943889-e8f9eb0cdb3c?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"c631afb2-8772-436f-8a21-c663a1bc84f6",
+    "category_id":"8c34c28c-cf17-4175-85aa-85244e83d737",
+    "name":"Helado Artesanal",
+    "description":"Bola de helado artesanal: guanábana, mamey o coco",
+    "price":35.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1497034825429-c343d7c6a68f?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"1bb6bc23-1790-4cfa-aa5c-5a200356dd5d",
+    "category_id":"ca45f53b-2b23-4c38-aa7b-68d13f07927a",
+    "name":"Ensalada César",
+    "description":"Lechuga romana, crutones, parmesano y aderezo césar",
+    "price":65.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1551248429-40975aa4de74?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"30e22de8-fa44-4efc-a90e-c76c1f388408",
+    "category_id":"ca45f53b-2b23-4c38-aa7b-68d13f07927a",
+    "name":"Ensalada de Aguacate",
+    "description":"Mix de verdes, aguacate, tomate cherry y vinagreta de limón",
+    "price":70.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1512621776951-a57141f2eefd?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  },
+  {
+    "id":"c57f1c7a-3d2f-4902-857d-aefd5a21050f",
+    "category_id":"ca45f53b-2b23-4c38-aa7b-68d13f07927a",
+    "name":"Ensalada de Pollo",
+    "description":"Pechuga a la plancha sobre mix de lechugas con aderezo de mostaza",
+    "price":75.0,
+    "image_url":"https:\/\/images.unsplash.com\/photo-1546793665-c74683f339c1?w=400",
+    "is_available":true,
+    "created_at":"2026-06-17T02:13:43.041882+00:00"
+  }
+]

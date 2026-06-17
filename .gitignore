@@ -20,3 +20,10 @@ build/
 Thumbs.db
 *.swp
 
+# Personal docs
+DOCS PRUEBA/
+
+# Claude Code
+.mcp.json
+skills-lock.json
+
