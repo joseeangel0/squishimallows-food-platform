@@ -91,6 +91,7 @@ export default function CatalogPage() {
         </div>
 
         <ProductModal
+          key={selected?.id ?? ""}
           product={selected}
           open={!!selected}
           onClose={() => setSelected(null)}
