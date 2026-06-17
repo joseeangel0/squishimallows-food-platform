@@ -85,13 +85,15 @@ export function ProductModal({ product, open, onClose, onAddToCart }: Props) {
 
   useEffect(() => {
     if (!product) return;
+    let mounted = true;
     setReviews([]);
     setRating(0);
     setComment("");
     setSubmitMsg("");
     fetch(`/api/reviews?product_id=${product.id}`)
       .then((r) => r.json())
-      .then(setReviews);
+      .then((data) => { if (mounted) setReviews(data); });
+    return () => { mounted = false; };
   }, [product]);
 
   const handleSubmit = async (e: React.FormEvent) => {
