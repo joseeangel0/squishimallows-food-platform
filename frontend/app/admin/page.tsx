@@ -25,8 +25,8 @@ async function getMetrics() {
     s.from("orders").select("*", { count: "exact", head: true }).gte("completed_at", monthStart),
     s.from("products").select("*", { count: "exact", head: true }),
     s.from("reviews").select("*", { count: "exact", head: true }),
-    s.from("product_views").select("product_id, products(name)").limit(500),
-    s.from("order_items").select("product_id, quantity, products(name)").limit(500),
+    s.rpc("top_viewed_products", { lim: 5 }),
+    s.rpc("top_sold_products",   { lim: 5 }),
     s.from("orders").select("completed_at").gte("completed_at", weekStart).order("completed_at"),
     s.auth.admin.listUsers(),
   ]);
@@ -34,21 +34,8 @@ async function getMetrics() {
   const totalRevenue = (revenue ?? []).reduce((sum, o) => sum + Number(o.order_total), 0);
   const totalUsers   = authUsers?.users?.length ?? 0;
 
-  const viewCounts: Record<string, { name: string; count: number }> = {};
-  (topViewed ?? []).forEach((v: any) => {
-    const id = v.product_id;
-    if (!viewCounts[id]) viewCounts[id] = { name: v.products?.name ?? id, count: 0 };
-    viewCounts[id].count++;
-  });
-  const topViewedList = Object.values(viewCounts).sort((a, b) => b.count - a.count).slice(0, 5);
-
-  const soldCounts: Record<string, { name: string; count: number }> = {};
-  (topSold ?? []).forEach((v: any) => {
-    const id = v.product_id;
-    if (!soldCounts[id]) soldCounts[id] = { name: v.products?.name ?? id, count: 0 };
-    soldCounts[id].count += Number(v.quantity);
-  });
-  const topSoldList = Object.values(soldCounts).sort((a, b) => b.count - a.count).slice(0, 5);
+  const topViewedList = (topViewed ?? []) as { name: string; count: number }[];
+  const topSoldList   = (topSold   ?? []) as { name: string; count: number }[];
 
   const dayMap: Record<string, number> = {};
   for (let i = 6; i >= 0; i--) {

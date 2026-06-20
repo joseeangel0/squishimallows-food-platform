@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { createServiceClient } from "@/lib/supabase/service";
 
 const TABLE_MAP: Record<string, string> = {
   product_view:      "product_views",
@@ -15,6 +15,7 @@ export async function POST(request: Request) {
   const table = TABLE_MAP[type];
   if (!table) return NextResponse.json({ error: "Invalid event type" }, { status: 400 });
 
+  const supabase = createServiceClient();
   const { error } = await supabase.from(table).insert(payload);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ ok: true }, { status: 201 });

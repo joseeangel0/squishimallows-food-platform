@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { supabase as anonClient } from "@/lib/supabase";
+import { createServiceClient } from "@/lib/supabase/service";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const product_id = searchParams.get("product_id");
   if (!product_id) return NextResponse.json({ error: "product_id required" }, { status: 400 });
 
-  const { data, error } = await anonClient
+  const { data, error } = await createServiceClient()
     .from("reviews")
     .select("id, rating, comment, user_email, verified_purchase, created_at")
     .eq("product_id", product_id)
