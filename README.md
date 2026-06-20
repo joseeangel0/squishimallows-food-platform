@@ -1,141 +1,141 @@
 # UPY Food E-commerce Platform – Squishimallows
 
-Skeleton técnico de una plataforma web de comercio electrónico enfocada en pedidos de comida para la comunidad estudiantil de la UPY. El objetivo principal es capturar y analizar datos sobre el comportamiento de los usuarios dentro del sistema.
+Technical skeleton of a web e-commerce platform focused on food orders for the UPY student community. The main objective is to capture and analyze data on user behavior within the system.
 
-## Contexto
+## Context
 
-El equipo **Squishimallows** desarrolla durante el Sprint 1 una base técnica funcional y revisable. La plataforma no es una aplicación comercial completa — es una infraestructura diseñada para capturar sesiones, navegación, búsquedas, visualizaciones de productos, eventos de carrito, órdenes completadas y patrones de consumo que sirvan como base para responder las preguntas de investigación del equipo.
+The **Squishimallows** team is developing a functional and reviewable technical base during Sprint 1. The platform is not a complete commercial application — it is an infrastructure designed to capture sessions, navigation, searches, product views, cart events, completed orders, and consumption patterns to serve as a base for answering the team's research questions.
 
 ## Sprint Goal
 
-Entregar un skeleton funcional y documentado que incluya:
+Deliver a functional and documented skeleton that includes:
 
-- Estructura inicial del repositorio
-- Modelo y schema de base de datos (Supabase/PostgreSQL)
+- Initial repository structure
+- Database model and schema (Supabase/PostgreSQL)
 - API skeleton (Next.js API Routes)
-- Scripts de generación de datos sintéticos (Python)
-- Archivos de muestra en CSV, JSON y Excel
-- Frontend skeleton con vistas mínimas
-- Checklist de QA
-- Configuración básica de GitHub Actions
+- Synthetic data generation scripts (Python)
+- Sample files in CSV, JSON, and Excel
+- Frontend skeleton with minimal views
+- QA Checklist
+- Basic GitHub Actions configuration
 
-## Estructura del repositorio
+## Repository Structure
 
 ```text
 .
 ├── frontend/          # Next.js app (frontend + API routes)
 │   ├── app/
-│   │   ├── page.tsx           # Catálogo de productos
-│   │   ├── search/page.tsx    # Búsqueda
-│   │   ├── cart/page.tsx      # Carrito
-│   │   ├── order/page.tsx     # Resumen de orden
+│   │   ├── page.tsx           # Product catalog
+│   │   ├── search/page.tsx    # Search
+│   │   ├── cart/page.tsx      # Cart
+│   │   ├── order/page.tsx     # Order summary
 │   │   └── api/               # API skeleton
 │   │       ├── products/
 │   │       ├── categories/
 │   │       ├── sessions/
 │   │       ├── orders/
 │   │       └── events/
-│   └── lib/supabase.ts        # Cliente Supabase
+│   └── lib/supabase.ts        # Supabase client
 ├── database/
-│   └── schema.sql             # Schema completo con tablas y relaciones
-├── scripts/                   # Generación de datos sintéticos (Python)
-│   ├── seed.py                # Script principal
-│   ├── export.py              # Exporta CSV, JSON y Excel
-│   ├── setup.sh               # Setup automático del entorno
+│   └── schema.sql             # Complete schema with tables and relationships
+├── scripts/                   # Synthetic data generation (Python)
+│   ├── seed.py                # Main script
+│   ├── export.py              # Exports CSV, JSON, and Excel
+│   ├── setup.sh               # Automatic environment setup
 │   ├── requirements.txt
-│   └── generate_*.py          # Scripts individuales por entidad
-├── sample_data/               # Archivos CSV, JSON y Excel generados
+│   └── generate_*.py          # Individual scripts per entity
+├── sample_data/               # Generated CSV, JSON, and Excel files
 ├── qa/
-│   └── checklist.md           # Checklist de validación del Sprint
-├── docs/                      # Documentación adicional
+│   └── checklist.md           # Validation checklist for the Sprint
+├── docs/                      # Additional documentation
 └── .github/
     └── workflows/
         └── skeleton-ci.yml    # GitHub Actions CI
 ```
 
-## Modelo de datos
+## Data Model
 
-Las entidades principales de la plataforma:
+The main entities of the platform:
 
-| Tabla | Descripción |
+| Table | Description |
 |---|---|
-| `users` | Usuarios anónimos con device_type |
-| `sessions` | Sesiones de navegación con timestamps y duración |
-| `categories` | Categorías de productos (Bebidas, Comidas, Snacks, etc.) |
-| `products` | Productos con precio y categoría |
-| `product_views` | Tiempo de visualización por producto |
-| `search_events` | Búsquedas internas y si completaron compra |
-| `category_browsing_events` | Tiempo de navegación por categoría |
-| `cart_events` | Eventos de carrito: add, abandon, return, checkout |
-| `orders` | Órdenes completadas con total y uso de búsqueda |
-| `order_items` | Detalle de productos por orden |
+| `users` | Anonymous users with device_type |
+| `sessions` | Navigation sessions with timestamps and duration |
+| `categories` | Product categories (Drinks, Foods, Snacks, etc.) |
+| `products` | Products with price and category |
+| `product_views` | Viewing time per product |
+| `search_events` | Internal searches and whether they completed a purchase |
+| `category_browsing_events` | Browsing time per category |
+| `cart_events` | Cart events: add, abandon, return, checkout |
+| `orders` | Completed orders with total and search usage |
+| `order_items` | Product details per order |
 
-## Instalación local
+## Local Installation
 
 ### Frontend (Next.js)
 
 ```bash
 cd frontend
 npm install
-cp ../.env.example .env.local   # llena las variables con tus keys de Supabase
+cp ../.env.example .env.local   # fill in the variables with your Supabase keys
 npm run dev
 ```
 
-Abre `http://localhost:3000`
+Open `http://localhost:3000`
 
-### Scripts Python
+### Python Scripts
 
 ```bash
-# Opción rápida – crea venv, instala deps, corre seed y export
+# Quick option – creates venv, installs deps, runs seed and export
 bash scripts/setup.sh
 
-# O paso a paso
+# Or step-by-step
 cd scripts
 python3 -m venv ../.venv
 source ../.venv/bin/activate
 pip install -r requirements.txt
-python seed.py      # inserta datos sintéticos en Supabase
-python export.py    # genera archivos en sample_data/
+python seed.py      # inserts synthetic data into Supabase
+python export.py    # generates files in sample_data/
 ```
 
-## Variables de entorno
+## Environment Variables
 
-Copia `.env.example` y rellena con tus credenciales de Supabase:
+Copy `.env.example` and fill in with your Supabase credentials:
 
 ```bash
 cp .env.example .env
 ```
 
-| Variable | Descripción |
+| Variable | Description |
 |---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto Supabase |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clave pública (anon) de Supabase |
-| `SUPABASE_SERVICE_ROLE_KEY` | Clave de servicio (solo para scripts Python) |
-| `DATABASE_URL` | Conexión directa a PostgreSQL |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public (anon) key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role key (only for Python scripts) |
+| `DATABASE_URL` | Direct connection to PostgreSQL |
 
-## Datos generados
+## Generated Data
 
-Los scripts en `scripts/` generan datos sintéticos mínimos para validar el schema. La data real es capturada por el frontend cuando usuarios reales interactúan con la plataforma.
+The scripts in `scripts/` generate minimum synthetic data to validate the schema. Real data is captured by the frontend when real users interact with the platform.
 
-| Entidad | Registros sintéticos |
+| Entity | Synthetic Records |
 |---|---|
-| Usuarios | 3 |
-| Sesiones | 5 |
-| Eventos por tabla | ~5–15 |
+| Users | 3 |
+| Sessions | 5 |
+| Events per table | ~5–15 |
 
-Los archivos exportados en `sample_data/` incluyen CSV y JSON por tabla, más un Excel consolidado (`squishimallows_data.xlsx`).
+The exported files in `sample_data/` include CSV and JSON per table, plus a consolidated Excel file (`squishimallows_data.xlsx`).
 
 ## CI/CD
 
-El workflow `.github/workflows/skeleton-ci.yml` valida automáticamente en cada push:
+The workflow `.github/workflows/skeleton-ci.yml` automatically validates on every push:
 
-1. **Frontend** – lint y build de Next.js
-2. **Scripts** – validación de sintaxis Python
-3. **Estructura** – verifica que todos los archivos requeridos existen
+1. **Frontend** – Next.js lint and build
+2. **Scripts** – Python syntax validation
+3. **Structure** – verifies that all required files exist
 
-## Roles del equipo
+## Team Roles
 
-| Rol | Integrante |
+| Role | Member |
 |---|---|
 | Scrum Master | Horta Sánchez |
 | Product Owner | Romero Cetina |
