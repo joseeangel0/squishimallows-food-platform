@@ -80,7 +80,7 @@ export function ProductModal({ product, open, onClose, onAddToCart }: Props) {
   const [comment, setComment]   = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitMsg, setSubmitMsg]   = useState("");
-  const openedAtRef    = useRef(Date.now());
+  const openedAtRef    = useRef(0);
   const addedToCartRef = useRef(false);
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export function ProductModal({ product, open, onClose, onAddToCart }: Props) {
       openedAtRef.current    = Date.now();
       addedToCartRef.current = false;
     }
-  }, [open, product?.id]);
+  }, [open, product]);
 
   const images = product?.images?.length ? product.images : product?.image_url ? [product.image_url] : [];
   const avgRating = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
