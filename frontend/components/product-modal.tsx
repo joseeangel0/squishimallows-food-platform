@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { logProductView } from "@/lib/tracking";
 
 type Product = {
   id: string;
@@ -79,6 +80,15 @@ export function ProductModal({ product, open, onClose, onAddToCart }: Props) {
   const [comment, setComment]   = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitMsg, setSubmitMsg]   = useState("");
+  const openedAtRef    = useRef(Date.now());
+  const addedToCartRef = useRef(false);
+
+  useEffect(() => {
+    if (open && product) {
+      openedAtRef.current    = Date.now();
+      addedToCartRef.current = false;
+    }
+  }, [open, product?.id]);
 
   const images = product?.images?.length ? product.images : product?.image_url ? [product.image_url] : [];
   const avgRating = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
@@ -123,7 +133,13 @@ export function ProductModal({ product, open, onClose, onAddToCart }: Props) {
   if (!product) return null;
 
   return (
-    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+    <Dialog open={open} onOpenChange={(v) => {
+      if (!v && product) {
+        const seconds = Math.round((Date.now() - openedAtRef.current) / 1000);
+        logProductView(product.id, seconds, addedToCartRef.current);
+      }
+      if (!v) onClose();
+    }}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0">
         <DialogTitle className="sr-only">{product.name}</DialogTitle>
 
@@ -160,7 +176,7 @@ export function ProductModal({ product, open, onClose, onAddToCart }: Props) {
 
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold text-gray-900">${product.price} MXN</span>
-            <Button className="bg-rm-purple hover:bg-rm-purple-hover text-white" onClick={() => { onAddToCart(product); onClose(); }}>
+            <Button className="bg-rm-purple hover:bg-rm-purple-hover text-white" onClick={() => { addedToCartRef.current = true; onAddToCart(product); onClose(); }}>
               Agregar al carrito
             </Button>
           </div>

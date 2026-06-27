@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Header } from "@/components/header";
 import { ProductModal } from "@/components/product-modal";
 import { useCart } from "@/lib/cart";
+import { initTracking } from "@/lib/tracking";
 
 type Product = { id: string; name: string; price: number; description: string; image_url: string | null; images: string[] | null; categories: { name: string } };
 type Category = { id: string; name: string; slug: string };
@@ -16,6 +17,8 @@ export default function CatalogPage() {
   const [search, setSearch]         = useState("");
   const { addItem, count } = useCart();
   const [selected, setSelected]     = useState<Product | null>(null);
+
+  useEffect(() => { initTracking(); }, []);
 
   useEffect(() => {
     fetch("/api/categories").then((r) => r.json()).then(setCategories);
