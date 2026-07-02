@@ -9,7 +9,7 @@ export async function GET() {
     if (!user) return NextResponse.json({ isAdmin: false });
 
     const service = createServiceClient();
-    const { data, error } = await service
+    const { data } = await service
       .from("admin_users")
       .select("id")
       .eq("user_id", user.id)
