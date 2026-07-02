@@ -34,9 +34,9 @@ export default function AuthPage() {
     if (!validate()) return;
 
     setLoading(true);
-    const supabase = createClient();
 
     if (mode === "login") {
+      const supabase = createClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
         setError("Correo o contraseña incorrectos");
@@ -46,9 +46,16 @@ export default function AuthPage() {
       router.push("/");
       router.refresh();
     } else {
-      const { error } = await supabase.auth.signUp({ email, password });
-      if (error) {
-        setError(error.message);
+      // El signup pasa por el servidor para que la restricción de dominio
+      // se aplique aunque alguien intente saltarse la validación del cliente.
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? "Error al crear la cuenta");
         setLoading(false);
         return;
       }

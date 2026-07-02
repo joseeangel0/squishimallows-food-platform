@@ -33,25 +33,18 @@ export function useCart() {
   };
 
   const addItem = (product: { id: string; name: string; price: number; image_url: string | null }) => {
-    setCart((prev) => {
-      const existing = prev.find((i) => i.id === product.id);
-      const next = existing
-        ? prev.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i)
-        : [...prev, { ...product, quantity: 1 }];
-      localStorage.setItem(KEY, JSON.stringify(next));
-      const newCount = next.reduce((s, i) => s + i.quantity, 0);
-      const newTotal = next.reduce((s, i) => s + Number(i.price) * i.quantity, 0);
-      logCartAdd(product.id, newCount, newTotal);
-      return next;
-    });
+    const existing = cart.find((i) => i.id === product.id);
+    const next = existing
+      ? cart.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i)
+      : [...cart, { ...product, quantity: 1 }];
+    save(next);
+    const newCount = next.reduce((s, i) => s + i.quantity, 0);
+    const newTotal = next.reduce((s, i) => s + Number(i.price) * i.quantity, 0);
+    logCartAdd(product.id, newCount, newTotal);
   };
 
   const removeItem = (id: string) => {
-    setCart((prev) => {
-      const next = prev.filter((i) => i.id !== id);
-      localStorage.setItem(KEY, JSON.stringify(next));
-      return next;
-    });
+    save(cart.filter((i) => i.id !== id));
   };
 
   const clearCart = () => save([]);

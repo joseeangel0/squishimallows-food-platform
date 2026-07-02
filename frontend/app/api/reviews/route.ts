@@ -25,10 +25,22 @@ export async function POST(request: Request) {
   const { product_id, rating, comment } = await request.json();
   if (!product_id || !rating) return NextResponse.json({ error: "Faltan campos" }, { status: 400 });
 
-  const { error } = await createServiceClient()
+  const service = createServiceClient();
+
+  const { data: purchase } = await service
+    .from("order_items")
+    .select("id, orders!inner(user_id, status)")
+    .eq("product_id", product_id)
+    .eq("orders.user_id", user.id)
+    .eq("orders.status", "completed")
+    .limit(1);
+
+  const verified_purchase = !!purchase?.length;
+
+  const { error } = await service
     .from("reviews")
     .upsert(
-      { product_id, user_id: user.id, user_email: user.email!, rating, comment },
+      { product_id, user_id: user.id, user_email: user.email!, rating, comment, verified_purchase },
       { onConflict: "product_id,user_id" }
     );
 

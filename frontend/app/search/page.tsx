@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/header";
 import { useCart } from "@/lib/cart";
+import { getTrackingIds } from "@/lib/tracking";
 
 type Product = { id: string; name: string; price: number; image_url: string | null; categories: { name: string } };
 
@@ -19,11 +20,14 @@ export default function SearchPage() {
     setResults(data);
     setSearched(true);
 
+    const { userId, sessionId } = getTrackingIds();
     fetch("/api/events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         type: "search",
+        session_id: sessionId,
+        user_id: userId,
         query: query.trim(),
         results_count: data.length,
         used_search: true,
