@@ -1,7 +1,5 @@
 import { createServiceClient } from "@/lib/supabase/service";
 
-type ViewRow = { product_id: string; products: { name: string }[] | null };
-type SoldRow = { product_id: string; quantity: number; products: { name: string }[] | null };
 type DailyOrderRow = { completed_at: string };
 
 async function getMetrics() {
@@ -27,8 +25,8 @@ async function getMetrics() {
     s.from("orders").select("*", { count: "exact", head: true }).gte("completed_at", weekStart),
     s.from("orders").select("*", { count: "exact", head: true }).gte("completed_at", monthStart),
     s.from("products").select("*", { count: "exact", head: true }),
-    s.from("product_views").select("product_id, products(name)").limit(500),
-    s.from("order_items").select("product_id, quantity, products(name)").limit(500),
+    s.rpc("top_viewed_products", { lim: 5 }),
+    s.rpc("top_sold_products",   { lim: 5 }),
     s.from("orders").select("completed_at").gte("completed_at", weekStart).order("completed_at"),
     s.auth.admin.listUsers(),
   ]);
@@ -36,21 +34,8 @@ async function getMetrics() {
   const totalRevenue = (revenue ?? []).reduce((sum, o) => sum + Number(o.order_total), 0);
   const totalUsers   = authUsers?.users?.length ?? 0;
 
-  const viewCounts: Record<string, { name: string; count: number }> = {};
-  ((topViewed ?? []) as unknown as ViewRow[]).forEach((v) => {
-    const id = v.product_id;
-    if (!viewCounts[id]) viewCounts[id] = { name: v.products?.[0]?.name ?? id, count: 0 };
-    viewCounts[id].count++;
-  });
-  const topViewedList = Object.values(viewCounts).sort((a, b) => b.count - a.count).slice(0, 5);
-
-  const soldCounts: Record<string, { name: string; count: number }> = {};
-  ((topSold ?? []) as unknown as SoldRow[]).forEach((v) => {
-    const id = v.product_id;
-    if (!soldCounts[id]) soldCounts[id] = { name: v.products?.[0]?.name ?? id, count: 0 };
-    soldCounts[id].count += Number(v.quantity);
-  });
-  const topSoldList = Object.values(soldCounts).sort((a, b) => b.count - a.count).slice(0, 5);
+  const topViewedList = (topViewed ?? []) as { name: string; count: number }[];
+  const topSoldList   = (topSold   ?? []) as { name: string; count: number }[];
 
   const dayMap: Record<string, number> = {};
   for (let i = 6; i >= 0; i--) {

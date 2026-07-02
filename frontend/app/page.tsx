@@ -25,10 +25,13 @@ export default function CatalogPage() {
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (activecat) params.set("category", activecat);
-    if (search)    params.set("search", search);
-    fetch(`/api/products?${params}`).then((r) => r.json()).then(setProducts);
+    const id = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (activecat) params.set("category", activecat);
+      if (search)    params.set("search", search);
+      fetch(`/api/products?${params}`).then((r) => r.json()).then(setProducts);
+    }, 300);
+    return () => clearTimeout(id);
   }, [activecat, search]);
 
   return (

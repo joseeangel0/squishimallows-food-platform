@@ -208,6 +208,32 @@ create table if not exists public.admin_users (
 alter table public.admin_users enable row level security;
 
 -- ============================================================
+-- AGGREGATE FUNCTIONS (admin dashboard)
+-- ============================================================
+
+create or replace function public.top_viewed_products(lim int default 5)
+returns table(product_id uuid, name text, count bigint)
+language sql security definer as $$
+  select pv.product_id, p.name, count(*) as count
+  from public.product_views pv
+  join public.products p on p.id = pv.product_id
+  group by pv.product_id, p.name
+  order by count desc
+  limit lim;
+$$;
+
+create or replace function public.top_sold_products(lim int default 5)
+returns table(product_id uuid, name text, count bigint)
+language sql security definer as $$
+  select oi.product_id, p.name, sum(oi.quantity)::bigint as count
+  from public.order_items oi
+  join public.products p on p.id = oi.product_id
+  group by oi.product_id, p.name
+  order by count desc
+  limit lim;
+$$;
+
+-- ============================================================
 -- INDEXES
 -- ============================================================
 create index if not exists idx_sessions_user_id         on public.sessions(user_id);
