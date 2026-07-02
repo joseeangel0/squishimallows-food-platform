@@ -1,5 +1,7 @@
 import { createServiceClient } from "@/lib/supabase/service";
 
+type DailyOrderRow = { completed_at: string };
+
 async function getMetrics() {
   const s = createServiceClient();
   const now = new Date();
@@ -13,7 +15,6 @@ async function getMetrics() {
     { count: ordersWeek },
     { count: ordersMonth },
     { count: totalProducts },
-    { count: totalReviews },
     { data: topViewed },
     { data: topSold },
     { data: dailyOrders },
@@ -24,7 +25,6 @@ async function getMetrics() {
     s.from("orders").select("*", { count: "exact", head: true }).gte("completed_at", weekStart),
     s.from("orders").select("*", { count: "exact", head: true }).gte("completed_at", monthStart),
     s.from("products").select("*", { count: "exact", head: true }),
-    s.from("reviews").select("*", { count: "exact", head: true }),
     s.rpc("top_viewed_products", { lim: 5 }),
     s.rpc("top_sold_products",   { lim: 5 }),
     s.from("orders").select("completed_at").gte("completed_at", weekStart).order("completed_at"),
@@ -42,7 +42,7 @@ async function getMetrics() {
     const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
     dayMap[d.toISOString().slice(0, 10)] = 0;
   }
-  (dailyOrders ?? []).forEach((o: any) => {
+  ((dailyOrders ?? []) as unknown as DailyOrderRow[]).forEach((o) => {
     const day = o.completed_at.slice(0, 10);
     if (day in dayMap) dayMap[day]++;
   });
@@ -51,7 +51,7 @@ async function getMetrics() {
     count,
   }));
 
-  return { totalRevenue, ordersToday: ordersToday ?? 0, ordersWeek: ordersWeek ?? 0, ordersMonth: ordersMonth ?? 0, totalProducts: totalProducts ?? 0, totalReviews: totalReviews ?? 0, totalUsers, topViewedList, topSoldList, chartData };
+  return { totalRevenue, ordersToday: ordersToday ?? 0, ordersWeek: ordersWeek ?? 0, ordersMonth: ordersMonth ?? 0, totalProducts: totalProducts ?? 0, totalUsers, topViewedList, topSoldList, chartData };
 }
 
 function MetricCard({ label, value, sub }: { label: string; value: string | number; sub?: string }) {
@@ -65,7 +65,7 @@ function MetricCard({ label, value, sub }: { label: string; value: string | numb
 }
 
 export default async function AdminOverview() {
-  const { totalRevenue, ordersToday, ordersWeek, ordersMonth, totalProducts, totalReviews, totalUsers, topViewedList, topSoldList, chartData } = await getMetrics();
+  const { totalRevenue, ordersToday, ordersWeek, ordersMonth, totalProducts, totalUsers, topViewedList, topSoldList, chartData } = await getMetrics();
   const maxOrders = Math.max(...chartData.map((d) => d.count), 1);
 
   return (

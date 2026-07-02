@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { logCartAdd } from "@/lib/tracking";
 
 export type CartItem = {
   id: string;
@@ -16,11 +17,14 @@ export function useCart() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(KEY);
-      if (stored) setCart(JSON.parse(stored));
-    } catch {}
-    setReady(true);
+    const load = async () => {
+      try {
+        const stored = localStorage.getItem(KEY);
+        if (stored) setCart(JSON.parse(stored));
+      } catch {}
+      setReady(true);
+    };
+    load();
   }, []);
 
   const save = (items: CartItem[]) => {
@@ -35,6 +39,9 @@ export function useCart() {
         ? prev.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i)
         : [...prev, { ...product, quantity: 1 }];
       localStorage.setItem(KEY, JSON.stringify(next));
+      const newCount = next.reduce((s, i) => s + i.quantity, 0);
+      const newTotal = next.reduce((s, i) => s + Number(i.price) * i.quantity, 0);
+      logCartAdd(product.id, newCount, newTotal);
       return next;
     });
   };

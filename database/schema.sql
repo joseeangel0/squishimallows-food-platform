@@ -180,6 +180,34 @@ create table if not exists public.order_items (
 alter table public.order_items enable row level security;
 
 -- ============================================================
+-- REVIEWS
+-- ============================================================
+create table if not exists public.reviews (
+  id                uuid primary key default extensions.uuid_generate_v4(),
+  product_id        uuid not null references public.products(id) on delete cascade,
+  user_id           uuid not null references auth.users(id) on delete cascade,
+  user_email        text not null,
+  rating            smallint not null check (rating >= 1 and rating <= 5),
+  comment           text,
+  verified_purchase boolean default false,
+  created_at        timestamptz default now(),
+  unique (product_id, user_id)
+);
+
+alter table public.reviews enable row level security;
+
+-- ============================================================
+-- ADMIN USERS
+-- ============================================================
+create table if not exists public.admin_users (
+  id         uuid primary key default extensions.uuid_generate_v4(),
+  user_id    uuid not null unique references auth.users(id) on delete cascade,
+  created_at timestamptz default now()
+);
+
+alter table public.admin_users enable row level security;
+
+-- ============================================================
 -- AGGREGATE FUNCTIONS (admin dashboard)
 -- ============================================================
 
