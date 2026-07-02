@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   const { product_id, rating, comment } = await request.json();
   if (!product_id || !rating) return NextResponse.json({ error: "Faltan campos" }, { status: 400 });
 
-  const { error } = await supabase
+  const { error } = await createServiceClient()
     .from("reviews")
     .upsert(
       { product_id, user_id: user.id, user_email: user.email!, rating, comment },
